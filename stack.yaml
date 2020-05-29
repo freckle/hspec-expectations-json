@@ -1,8 +1,7 @@
 resolver: lts-15.14
 
 ghc-options:
-  "$locals":
-    -ddump-to-file
+  "$locals": -ddump-to-file
     -ddump-hi
     -Weverything
     -Wno-missed-specialisations
