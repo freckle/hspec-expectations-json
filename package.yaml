@@ -1,5 +1,35 @@
 name: hspec-expectations-json
 version: 0.0.0.1
+category: Test
+author: Freckle Engineering
+maintainer: engineering@freckle.com
+copyright: 2020 Freckle Education
+license: MIT
+github: freckle/hspec-expectations-json
+synopsis: Hspec expectations for JSON Values
+description: |
+  Hspec expectations for JSON Values
+
+  Comparing JSON `Value`s in Haskell tests comes with some challenges:
+
+  - In API responses, additive changes are typically safe and an important way
+    to evolve responses without breaking clients. Therefore, assertions against
+    such responses often want to ignore any unexpected keys in `Object`s (at any
+    depth), as any clients would.
+
+  - Order often doesn't matter in API responses either, so it should be possible
+    to assert equality regardless of `Array` ordering (again, at any depth).
+
+  - When an assertion fails, showing the difference clearly needs to take the
+    above into account (i.e. it can't show keys you've ignored, or ordering
+    differences you didn't care about), and it has to display things clearly,
+    e.g. as a diff.
+
+  This library handles all these things.
+
+extra-doc-files:
+  - CHANGELOG.md
+  - README.md
 
 dependencies:
   - base
