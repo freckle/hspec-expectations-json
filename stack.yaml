@@ -1,0 +1,15 @@
+resolver: lts-15.14
+
+ghc-options:
+  "$locals": -ddump-to-file
+    -ddump-hi
+    -Weverything
+    -Wno-missed-specialisations
+    -Wno-all-missed-specialisations
+    -Wno-unsafe
+    -Wno-safe
+    -Wno-missing-local-signatures
+    -Wno-monomorphism-restriction
+    -Wno-missing-import-lists
+    -Wno-implicit-prelude
+    -fignore-optim-changes

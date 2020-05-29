@@ -1,0 +1,52 @@
+name: hspec-expectations-json
+version: 0.0.0.1
+
+dependencies:
+  - base
+
+default-extensions:
+  - BangPatterns
+  - DataKinds
+  - DeriveAnyClass
+  - DeriveFoldable
+  - DeriveFunctor
+  - DeriveGeneric
+  - DeriveLift
+  - DeriveTraversable
+  - DerivingStrategies
+  - FlexibleContexts
+  - FlexibleInstances
+  - GADTs
+  - GeneralizedNewtypeDeriving
+  - LambdaCase
+  - MultiParamTypeClasses
+  - NoImplicitPrelude
+  - NoMonomorphismRestriction
+  - OverloadedStrings
+  - RankNTypes
+  - RecordWildCards
+  - ScopedTypeVariables
+  - StandaloneDeriving
+  - TypeApplications
+  - TypeFamilies
+
+library:
+  source-dirs: library
+  dependencies:
+    - Diff
+    - HUnit
+    - aeson
+    - aeson-pretty
+    - scientific
+    - text
+    - unordered-containers
+    - vector
+
+tests:
+  spec:
+    main: Spec.hs
+    source-dirs: tests
+    dependencies:
+      - aeson-qq
+      - hspec
+      - hspec-expectations-json
