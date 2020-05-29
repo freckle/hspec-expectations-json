@@ -32,7 +32,7 @@ extra-doc-files:
   - README.md
 
 dependencies:
-  - base
+  - base >=4.11 && <4.14
 
 default-extensions:
   - BangPatterns
@@ -63,14 +63,14 @@ default-extensions:
 library:
   source-dirs: library
   dependencies:
-    - Diff
-    - HUnit
-    - aeson
-    - aeson-pretty
-    - scientific
-    - text
-    - unordered-containers
-    - vector
+    - Diff >=0.4.0 && <0.5
+    - HUnit >=1.6.0.0 && <1.7
+    - aeson >=1.4.7.1 && <1.5
+    - aeson-pretty >=0.8.8 && <0.9
+    - scientific >=0.3.6.2 && <0.4
+    - text >=1.2.4.0 && <1.3
+    - unordered-containers >=0.2.10.0 && <0.3
+    - vector >=0.12.1.2 && <0.13
 
 tests:
   spec:
