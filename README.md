@@ -25,11 +25,11 @@ view them directly for your installed version, to ensure accurate information.
 Four expectations exist with the following behaviors:
 
 | Assertion that **fails** on: | extra `Object` keys | wrong `Array` order |
-| --- | --- | --- |
-| `shouldBeJson` | Yes | Yes |
-| `shouldBeUnorderedJson` | Yes | No |
-| `shouldMatchJson` | No | No |
-| `shouldMatchOrderedJson` | No | Yes |
+| ---------------------------- | ------------------- | ------------------- |
+| `shouldBeJson`               | Yes                 | Yes                 |
+| `shouldBeUnorderedJson`      | Yes                 | No                  |
+| `shouldMatchJson`            | No                  | No                  |
+| `shouldMatchOrderedJson`     | No                  | Yes                 |
 
 Each of these, when they fail, print a difference between the objects, where the
 expected-on object has been normalized to avoid indicating any of the
