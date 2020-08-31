@@ -19,8 +19,10 @@ This library handles all these things.
 
 ## Usage
 
-**NOTE**: this is effectively a distillation of the [Haddocks](#TODO), please
+**NOTE**: this is effectively a distillation of the [Haddocks][], please
 view them directly for your installed version, to ensure accurate information.
+
+[haddocks]: http://hackage.haskell.org/package/hspec-expectations-json/docs/Test-Hspec-Expectations-Json.html
 
 Four expectations exist with the following behaviors:
 
