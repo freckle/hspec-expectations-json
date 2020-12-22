@@ -65,10 +65,10 @@ library:
   dependencies:
     - Diff
     - HUnit
-    - aeson
+    - aeson < 1.6
     - aeson-pretty
     - scientific
-    - text
+    - text > 1.2 && < 1.4
     - unordered-containers
     - vector
 
