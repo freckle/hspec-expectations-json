@@ -32,7 +32,7 @@ extra-doc-files:
   - README.md
 
 dependencies:
-  - base >=4.11 && <4.15
+  - base >=4.11 && <5
 
 default-extensions:
   - BangPatterns
