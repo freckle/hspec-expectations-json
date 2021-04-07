@@ -1,4 +1,4 @@
-## [*Unreleased*](https://github.com/freckle/hspec-expectations-json/compare/v1.0.0.3...master)
+## [_Unreleased_](https://github.com/freckle/hspec-expectations-json/compare/v1.0.0.3...master)
 
 None
 
