@@ -2,7 +2,7 @@
 
 None
 
-## [v1.0.0.2](https://github.com/freckle/hspec-expectations-json/compare/v1.0.0.2...v1.0.0.3)
+## [v1.0.0.3](https://github.com/freckle/hspec-expectations-json/compare/v1.0.0.2...v1.0.0.3)
 
 - Less restrictive upper bound on `base`
 
