@@ -1,6 +1,10 @@
-## [_Unreleased_](https://github.com/freckle/hspec-expectations-json/compare/v1.0.0.3...master)
+## [_Unreleased_](https://github.com/freckle/hspec-expectations-json/compare/v1.0.0.4...main)
 
 None
+
+## [v1.0.0.4](https://github.com/freckle/hspec-expectations-json/compare/v1.0.0.3...v1.0.0.4)
+
+- Remove dependencies upper bounds
 
 ## [v1.0.0.3](https://github.com/freckle/hspec-expectations-json/compare/v1.0.0.2...v1.0.0.3)
 
