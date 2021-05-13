@@ -1,5 +1,5 @@
 name: hspec-expectations-json
-version: 1.0.0.3
+version: 1.0.0.4
 category: Test
 author: Freckle Engineering
 maintainer: engineering@freckle.com
@@ -65,10 +65,10 @@ library:
   dependencies:
     - Diff
     - HUnit
-    - aeson < 1.6
+    - aeson
     - aeson-pretty
     - scientific
-    - text > 1.2 && < 1.4
+    - text > 1.2
     - unordered-containers
     - vector
 
