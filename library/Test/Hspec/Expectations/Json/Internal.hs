@@ -23,7 +23,7 @@ import Prelude
 
 import Data.Aeson
 import Data.Algorithm.Diff (PolyDiff(..), getDiff)
-import qualified Data.HashMap.Strict as HashMap
+import qualified Data.Aeson.KeyMap as KeyMap
 import Data.List (sortOn)
 import qualified Data.Scientific as Scientific
 import Data.Text (Text)
@@ -52,7 +52,7 @@ newtype Subset = Subset Value
 pruneJson :: Superset -> Subset -> Value
 pruneJson (Superset sup) (Subset sub) = case (sup, sub) of
   (Object a, Object b) -> Object
-    $ HashMap.intersectionWith (\x y -> pruneJson (Superset x) (Subset y)) a b
+    $ KeyMap.intersectionWith (\x y -> pruneJson (Superset x) (Subset y)) a b
 
   -- Pruning elements in Arrays is *extremely* tricky in that it interacts with
   -- both sorting and matching in what should be a function independent of those
@@ -93,7 +93,7 @@ instance Ord Sortable where
     (Null, Null) -> EQ -- forgive me
     (Array x, Array y) -> V.map Sortable x `compare` V.map Sortable y
     (Object x, Object y) ->
-      HashMap.map Sortable x `compare` HashMap.map Sortable y
+      (Sortable <$> x) `compare` (Sortable <$> y)
     (x, y) -> arbitraryRank x `compare` arbitraryRank y
    where
     arbitraryRank :: Value -> Int
@@ -108,7 +108,7 @@ instance Ord Sortable where
 sortJsonArrays :: Value -> Value
 sortJsonArrays = \case
   Array v -> Array $ vectorSortOn Sortable $ sortJsonArrays <$> v
-  Object hm -> Object $ HashMap.map sortJsonArrays hm
+  Object hm -> Object $ sortJsonArrays <$> hm
   x@String{} -> x
   x@Number{} -> x
   x@Bool{} -> x
@@ -130,7 +130,7 @@ vectorSortOn f v = v V.// zip [0 ..] sorted
 --
 normalizeScientific :: Value -> Value
 normalizeScientific = \case
-  Object hm -> Object $ HashMap.map normalizeScientific hm
+  Object hm -> Object $ normalizeScientific <$> hm
   Array vs -> Array $ normalizeScientific <$> vs
   x@String{} -> x
   Number sci ->

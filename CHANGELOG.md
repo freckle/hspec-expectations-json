@@ -2,6 +2,10 @@
 
 None
 
+## [v1.0.0.5](https://github.com/freckle/hspec-expectations-json/compare/v1.0.0.4...v1.0.0.5)
+
+- Add lower bound for `aeson` 2.x
+
 ## [v1.0.0.4](https://github.com/freckle/hspec-expectations-json/compare/v1.0.0.3...v1.0.0.4)
 
 - Remove dependencies upper bounds
