@@ -1,3 +1,5 @@
+{-# LANGUAGE CPP #-}
+
 -- | Internal building-blocks for JSON 'Value' expectations
 module Test.Hspec.Expectations.Json.Internal
   (
@@ -21,9 +23,18 @@ where
 
 import Prelude
 
+
 import Data.Aeson
+#if MIN_VERSION_Diff(0,4,0)
 import Data.Algorithm.Diff (PolyDiff(..), getDiff)
+#else
+import Data.Algorithm.Diff (Diff(..), getDiff)
+#endif
+#if MIN_VERSION_aeson(2,0,0)
 import qualified Data.Aeson.KeyMap as KeyMap
+#else
+import qualified Data.HashMap.Strict as KeyMap
+#endif
 import Data.List (sortOn)
 import qualified Data.Scientific as Scientific
 import Data.Text (Text)
@@ -32,6 +43,9 @@ import Data.Vector (Vector)
 import qualified Data.Vector as V
 import GHC.Stack (HasCallStack)
 import qualified Test.HUnit as HUnit
+
+-- So we can call HashMap KeyMap in older aeson
+{-# ANN module ("HLint: ignore Avoid restricted qualification" :: String) #-}
 
 assertBoolWithDiff :: HasCallStack => Bool -> Text -> Text -> IO ()
 assertBoolWithDiff asserting expected got =
