@@ -4,7 +4,7 @@ cabal-version: 1.18
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 2249f4f5ffd0827d7a56b3b54bde96f866cf4cbf1356a68eef20779a8f93a3cd
+-- hash: 947f0e1d262898f4d5259f45375e15b18df16fb40d0deb2f3232cf6c3de10353
 
 name:           hspec-expectations-json
 version:        1.0.0.5
@@ -80,11 +80,12 @@ library
   build-depends:
       Diff
     , HUnit
-    , aeson >=2.0.0.0
+    , aeson
     , aeson-pretty
     , base >=4.11 && <5
     , scientific
-    , text >1.2
+    , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
