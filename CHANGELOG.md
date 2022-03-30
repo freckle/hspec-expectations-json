@@ -1,6 +1,11 @@
-## [_Unreleased_](https://github.com/freckle/hspec-expectations-json/compare/v1.0.0.4...main)
+## [_Unreleased_](https://github.com/freckle/hspec-expectations-json/compare/v1.0.0.6...main)
 
 None
+
+## [v1.0.0.6](https://github.com/freckle/hspec-expectations-json/compare/v1.0.0.5...v1.0.0.6)
+
+- Support GHC 9.0 and 9.2
+- Re-add support for aeson-1.x
 
 ## [v1.0.0.5](https://github.com/freckle/hspec-expectations-json/compare/v1.0.0.4...v1.0.0.5)
 
