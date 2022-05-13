@@ -2,8 +2,7 @@
 
 module Test.Hspec.Expectations.JsonSpec
   ( spec
-  )
-where
+  ) where
 
 import Prelude
 
@@ -111,3 +110,40 @@ spec = do
         |]
 
       a `shouldMatchJson` b
+
+    -- it "is an example failure, to checking how they're printed" $ do
+    --   let
+    --     a = [aesonQQ|
+    --       [ { "shortName": "B"
+    --         , "subSkills":
+    --           [ { "shortName": "1"
+    --             , "uspId": "68fa5xxxxxxxx332f7c88884e5c40e"
+    --             }
+    --           ]
+    --         }
+    --       , { "shortName": "A"
+    --         , "subSkills":
+    --              [ { "shortName": "a"
+    --                , "uspId": "71839723561ba1a49cf2a789dbe50302"
+    --                }
+    --              , { "shortName": "b"
+    --                , "uspId": "4096d2cfebcab73438971ae2304544ee"
+    --                }
+    --              ]
+    --         }
+    --       ]
+    --     |]
+    --     b = [aesonQQ|
+    --       [ { "subSkills":
+    --           [ { "uspId": "71839723561ba1a49cf2a789dbe50302" }
+    --           , { "uspId": "4096d2cfebcab73438971ae2304544ee" }
+    --           ]
+    --         }
+    --       , { "subSkills":
+    --           [ { "uspId": "68fa57ddbc1e9aa332f7c88884e5c40e" }
+    --           ]
+    --         }
+    --       ]
+    --     |]
+
+    --   a `shouldMatchJson` b
