@@ -4,7 +4,7 @@ cabal-version: 1.18
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: e19b1533eea5881244d80499fb25444f83558ff32ed38504fddb33e47c7322a4
+-- hash: a3f7ca52bc4458512b73169ea618ba58fa7becc1171fd1d17461ef1993b450b4
 
 name:           hspec-expectations-json
 version:        1.0.0.6
@@ -48,6 +48,7 @@ library
   exposed-modules:
       Test.Hspec.Expectations.Json
       Test.Hspec.Expectations.Json.Internal
+      Test.Hspec.Expectations.Json.Lifted
   other-modules:
       Paths_hspec_expectations_json
   hs-source-dirs:
