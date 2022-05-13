@@ -43,20 +43,22 @@ import Data.Vector (Vector)
 import qualified Data.Vector as V
 import GHC.Stack (HasCallStack)
 import qualified Test.HUnit as HUnit
+import Test.Hspec.Expectations.Json.Color
 
 -- So we can call HashMap KeyMap in older aeson
 {-# ANN module ("HLint: ignore Avoid restricted qualification" :: String) #-}
 
 assertBoolWithDiff :: HasCallStack => Bool -> Text -> Text -> IO ()
-assertBoolWithDiff asserting expected got =
-  flip HUnit.assertBool asserting . unlines . map addSign $ getDiff
+assertBoolWithDiff asserting expected got = do
+  colorize <- getColorize
+  flip HUnit.assertBool asserting . unlines . map (addSign colorize) $ getDiff
     (lines (T.unpack expected))
     (lines (T.unpack got))
  where
-  addSign = \case
-    Both _ s -> "   " ++ s
-    First s -> "---" ++ s
-    Second s -> "+++" ++ s
+  addSign colorize = \case
+    Both _ s -> colorize Reset $ "   " ++ s
+    First s -> colorize Red $ "---" ++ s
+    Second s -> colorize Green $ "+++" ++ s
 
 newtype Superset = Superset Value
 
