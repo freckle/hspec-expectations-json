@@ -1,6 +1,10 @@
-## [_Unreleased_](https://github.com/freckle/hspec-expectations-json/compare/v1.0.0.6...main)
+## [_Unreleased_](https://github.com/freckle/hspec-expectations-json/compare/v1.0.1.0...main)
 
-None
+## [v1.0.1.0](https://github.com/freckle/hspec-expectations-json/compare/v1.0.0.6...v1.0.1.0)
+
+- Colorize diff in expectation failure, if connected to a terminal or running on
+  GitHub Actions.
+- Add a `.Lifted` module with `MonadIO` versions
 
 ## [v1.0.0.6](https://github.com/freckle/hspec-expectations-json/compare/v1.0.0.5...v1.0.0.6)
 
