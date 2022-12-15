@@ -1,5 +1,10 @@
 # Hspec Expectations for JSON Values
 
+[![Hackage](https://img.shields.io/hackage/v/hspec-expectations-json.svg?style=flat)](https://hackage.haskell.org/package/hspec-expectations-json)
+[![Stackage Nightly](http://stackage.org/package/hspec-expectations-json/badge/nightly)](http://stackage.org/nightly/package/hspec-expectations-json)
+[![Stackage LTS](http://stackage.org/package/hspec-expectations-json/badge/lts)](http://stackage.org/lts/package/hspec-expectations-json)
+[![CI](https://github.com/freckle/hspec-expectations-json/actions/workflows/ci.yml/badge.svg)](https://github.com/freckle/hspec-expectations-json/actions/workflows/ci.yml)
+
 Comparing JSON `Value`s in Haskell tests comes with some challenges:
 
 - In API responses, additive changes are typically safe and an important way to
