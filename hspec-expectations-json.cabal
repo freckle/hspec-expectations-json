@@ -1,10 +1,10 @@
 cabal-version: 1.18
 
--- This file has been generated from package.yaml by hpack version 0.34.4.
+-- This file has been generated from package.yaml by hpack version 0.35.1.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: d1ebf85fa8ddd727064f9ff9a81c133512ce7165a7bf9e67002dff04467c1cfd
+-- hash: f5fa8c4645f2ec76ec6837564deafa8d5399ad48fdc64b04351fbd44381229db
 
 name:           hspec-expectations-json
 version:        1.0.0.7
@@ -126,7 +126,8 @@ test-suite spec
       TypeApplications
       TypeFamilies
   build-depends:
-      aeson-qq
+      QuickCheck
+    , aeson-qq
     , base >=4.11 && <5
     , hspec
     , hspec-expectations-json
