@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE QuasiQuotes #-}
 
 module Test.Hspec.Expectations.JsonSpec
@@ -11,10 +12,17 @@ import Test.Hspec
 import Test.Hspec.Expectations.Json
 import Test.Hspec.QuickCheck (prop)
 
+matchesJsonTest :: SpecWith ()
+#if MIN_VERSION_aeson(2,0,3)
+matchesJsonTest = describe "matchesJson" $ do
+  prop "always matches itself" $ \a -> a `matchesJson` a
+#else
+matchesJsonTest = pure ()
+#endif
+
 spec :: Spec
 spec = do
-  describe "matchesJson" $ do
-    prop "always matches itself" $ \a -> a `matchesJson` a
+  matchesJsonTest
 
   describe "shouldMatchJson" $ do
     it "matches itself" $ do

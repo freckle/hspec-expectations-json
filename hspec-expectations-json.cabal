@@ -4,7 +4,7 @@ cabal-version: 1.18
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f5fa8c4645f2ec76ec6837564deafa8d5399ad48fdc64b04351fbd44381229db
+-- hash: 19cac3e800b693fe2abef985d22d3e12b8fa461d817f987c2279a69ca839ccad
 
 name:           hspec-expectations-json
 version:        1.0.0.7
@@ -127,6 +127,7 @@ test-suite spec
       TypeFamilies
   build-depends:
       QuickCheck
+    , aeson
     , aeson-qq
     , base >=4.11 && <5
     , hspec
