@@ -10,7 +10,9 @@ import Prelude
 import Data.Aeson.QQ
 import Test.Hspec
 import Test.Hspec.Expectations.Json
+#if MIN_VERSION_aeson(2,0,3)
 import Test.Hspec.QuickCheck (prop)
+#endif
 
 matchesJsonTest :: SpecWith ()
 #if MIN_VERSION_aeson(2,0,3)
