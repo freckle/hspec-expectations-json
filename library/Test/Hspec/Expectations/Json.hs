@@ -34,6 +34,7 @@ import Data.Text.Lazy (toStrict)
 import Data.Text.Lazy.Encoding (decodeUtf8)
 import GHC.Stack
 import Test.Hspec.Expectations.Json.Internal
+import Control.Monad (unless)
 
 -- $setup
 -- >>> :set -XQuasiQuotes
@@ -94,7 +95,8 @@ infix 1 `shouldBeJson`
 --    }
 --
 shouldBeUnorderedJson :: HasCallStack => Value -> Value -> IO ()
-shouldBeUnorderedJson a b = sortJsonArrays a `shouldBeJson` sortJsonArrays b
+shouldBeUnorderedJson a b = unless (a == b) $
+  sortJsonArrays a `shouldBeJson` sortJsonArrays b
 
 infix 1 `shouldBeUnorderedJson`
 
@@ -122,7 +124,7 @@ infix 1 `shouldBeUnorderedJson`
 --    }
 --
 shouldMatchJson :: HasCallStack => Value -> Value -> IO ()
-shouldMatchJson sup sub =
+shouldMatchJson sup sub = unless (sup == sub) $
   sortJsonArrays (pruneJson (Superset sup) (Subset sub))
     `shouldBeJson` sortJsonArrays sub
 
@@ -130,7 +132,7 @@ infix 1 `shouldMatchJson`
 
 -- | Compare JSON values with the same semantics as 'shouldMatchJson'
 matchesJson :: Value -> Value -> Bool
-matchesJson sup sub =
+matchesJson sup sub = sup == sub ||
   sortJsonArrays (pruneJson (Superset sup) (Subset sub)) == sortJsonArrays sub
 
 -- | 'shouldBeJson', ignoring extra Object keys
@@ -159,7 +161,7 @@ matchesJson sup sub =
 --    }
 --
 shouldMatchOrderedJson :: HasCallStack => Value -> Value -> IO ()
-shouldMatchOrderedJson sup sub =
+shouldMatchOrderedJson sup sub = unless (sup == sub) $
   pruneJson (Superset sup) (Subset sub) `shouldBeJson` sub
 
 infix 1 `shouldMatchOrderedJson`
