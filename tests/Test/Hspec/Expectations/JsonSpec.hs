@@ -18,7 +18,7 @@ spec = do
 
   describe "shouldMatchJson" $ do
     it "matches itself" $ do
-      let 
+      let
         a = [aesonQQ|[{id:1}, {id:2, a:"a"}]|]
         b = [aesonQQ|[{id:1, a:"a"}, {id:2}]|]
         c = [aesonQQ|[{id:1, a:"a"}, {id:2, a:"a"}]|]
