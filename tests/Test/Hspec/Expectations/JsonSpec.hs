@@ -25,7 +25,7 @@ spec = do
       a `shouldMatchJson` a
       b `shouldMatchJson` b
       c `shouldMatchJson` c
-      
+
     it "passes regardless of array order" $ do
       let
         a = [aesonQQ|[{ "foo": 1 }, { "foo": 0 }]|]
