@@ -1,5 +1,9 @@
 ## [_Unreleased_](https://github.com/freckle/hspec-expectations-json/compare/v1.0.1.0...main)
 
+## [v1.0.1.1](https://github.com/freckle/hspec-expectations-json/compare/v1.0.1.0...v1.0.1.1)
+
+- Add invariant for all matchers for equality. (ex: forall a. a `shouldMatchJson` a)
+
 ## [v1.0.1.0](https://github.com/freckle/hspec-expectations-json/compare/v1.0.0.6...v1.0.1.0)
 
 - Colorize diff in expectation failure, if connected to a terminal or running on

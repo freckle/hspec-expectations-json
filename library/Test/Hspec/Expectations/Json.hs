@@ -23,11 +23,11 @@ module Test.Hspec.Expectations.Json
   -- * As predicates
   -- | These are only created when a specific need arises
   , matchesJson
-  )
-where
+  ) where
 
 import Prelude
 
+import Control.Monad (unless)
 import Data.Aeson
 import Data.Aeson.Encode.Pretty (encodePretty)
 import Data.Text.Lazy (toStrict)
@@ -94,7 +94,8 @@ infix 1 `shouldBeJson`
 --    }
 --
 shouldBeUnorderedJson :: HasCallStack => Value -> Value -> IO ()
-shouldBeUnorderedJson a b = sortJsonArrays a `shouldBeJson` sortJsonArrays b
+shouldBeUnorderedJson a b =
+  unless (a == b) $ sortJsonArrays a `shouldBeJson` sortJsonArrays b
 
 infix 1 `shouldBeUnorderedJson`
 
@@ -123,7 +124,8 @@ infix 1 `shouldBeUnorderedJson`
 --
 shouldMatchJson :: HasCallStack => Value -> Value -> IO ()
 shouldMatchJson sup sub =
-  sortJsonArrays (pruneJson (Superset sup) (Subset sub))
+  unless (sup == sub)
+    $ sortJsonArrays (pruneJson (Superset sup) (Subset sub))
     `shouldBeJson` sortJsonArrays sub
 
 infix 1 `shouldMatchJson`
@@ -131,7 +133,10 @@ infix 1 `shouldMatchJson`
 -- | Compare JSON values with the same semantics as 'shouldMatchJson'
 matchesJson :: Value -> Value -> Bool
 matchesJson sup sub =
-  sortJsonArrays (pruneJson (Superset sup) (Subset sub)) == sortJsonArrays sub
+  sup
+    == sub
+    || sortJsonArrays (pruneJson (Superset sup) (Subset sub))
+    == sortJsonArrays sub
 
 -- | 'shouldBeJson', ignoring extra Object keys
 --
@@ -160,6 +165,6 @@ matchesJson sup sub =
 --
 shouldMatchOrderedJson :: HasCallStack => Value -> Value -> IO ()
 shouldMatchOrderedJson sup sub =
-  pruneJson (Superset sup) (Subset sub) `shouldBeJson` sub
+  unless (sup == sub) $ pruneJson (Superset sup) (Subset sub) `shouldBeJson` sub
 
 infix 1 `shouldMatchOrderedJson`
