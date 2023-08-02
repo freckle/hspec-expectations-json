@@ -7,7 +7,7 @@ module Test.Hspec.Expectations.Json.Lifted
 
 import Prelude
 
-import Control.Monad.IO.Class (MonadIO(..))
+import Control.Monad.IO.Class (MonadIO (..))
 import Data.Aeson
 import GHC.Stack
 import qualified Test.Hspec.Expectations.Json as E

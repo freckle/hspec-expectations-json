@@ -1,11 +1,11 @@
 module Test.Hspec.Expectations.Json.Color
-  ( Color(..)
+  ( Color (..)
   , getColorize
   ) where
 
 import Prelude
 
-import Control.Monad.IO.Class (MonadIO(..))
+import Control.Monad.IO.Class (MonadIO (..))
 import System.Environment (lookupEnv)
 import System.IO (hIsTerminalDevice, stdout)
 
@@ -18,10 +18,12 @@ getColorize = do
   shouldColorize <-
     liftIO $ (||) <$> isGitHubActions <*> hIsTerminalDevice stdout
 
-  pure $ if shouldColorize
-    then \c x -> escape Reset <> escape c <> x <> escape Reset
-    else \_ x -> x
-  where isGitHubActions = (== Just "true") <$> lookupEnv "GITHUB_ACTIONS"
+  pure $
+    if shouldColorize
+      then \c x -> escape Reset <> escape c <> x <> escape Reset
+      else \_ x -> x
+ where
+  isGitHubActions = (== Just "true") <$> lookupEnv "GITHUB_ACTIONS"
 
 escape :: Color -> String
 escape = \case

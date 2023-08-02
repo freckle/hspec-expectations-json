@@ -2,27 +2,25 @@
 
 -- | Internal building-blocks for JSON 'Value' expectations
 module Test.Hspec.Expectations.Json.Internal
-  (
-  -- * Pretty diff
+  ( -- * Pretty diff
     assertBoolWithDiff
 
-  -- * Pruning 'Object's
-  , Superset(..)
-  , Subset(..)
+    -- * Pruning 'Object's
+  , Superset (..)
+  , Subset (..)
   , pruneJson
 
-  -- * Sorting 'Array's
-  , Sortable(..)
+    -- * Sorting 'Array's
+  , Sortable (..)
   , sortJsonArrays
   , vectorSortOn
 
-  -- * Dealing with 'Scientific'
+    -- * Dealing with 'Scientific'
   , normalizeScientific
   )
 where
 
 import Prelude
-
 
 import Data.Aeson
 #if MIN_VERSION_Diff(0,4,0)
@@ -51,9 +49,10 @@ import Test.Hspec.Expectations.Json.Color
 assertBoolWithDiff :: HasCallStack => Bool -> Text -> Text -> IO ()
 assertBoolWithDiff asserting expected got = do
   colorize <- getColorize
-  flip HUnit.assertBool asserting . unlines . map (addSign colorize) $ getDiff
-    (lines (T.unpack expected))
-    (lines (T.unpack got))
+  flip HUnit.assertBool asserting . unlines . map (addSign colorize) $
+    getDiff
+      (lines (T.unpack expected))
+      (lines (T.unpack got))
  where
   addSign colorize = \case
     Both _ s -> colorize Reset $ "   " ++ s
@@ -67,9 +66,9 @@ newtype Subset = Subset Value
 -- | Recursively remove items in the 'Superset' value not present in 'Subset'
 pruneJson :: Superset -> Subset -> Value
 pruneJson (Superset sup) (Subset sub) = case (sup, sub) of
-  (Object a, Object b) -> Object
-    $ KeyMap.intersectionWith (\x y -> pruneJson (Superset x) (Subset y)) a b
-
+  (Object a, Object b) ->
+    Object $
+      KeyMap.intersectionWith (\x y -> pruneJson (Superset x) (Subset y)) a b
   -- Pruning elements in Arrays is *extremely* tricky in that it interacts with
   -- both sorting and matching in what should be a function independent of those
   -- concerns. There are no good options here, so we make some concessions:
@@ -95,11 +94,10 @@ pruneJson (Superset sup) (Subset sub) = case (sup, sub) of
   (Array a, Array b) -> Array $ case b V.!? 0 of
     Nothing -> a
     Just y -> (\x -> pruneJson (Superset x) (Subset y)) <$> a
-
   (x, _) -> x
 
 newtype Sortable = Sortable Value
-  deriving newtype Eq
+  deriving newtype (Eq)
 
 instance Ord Sortable where
   Sortable a `compare` Sortable b = case (a, b) of
@@ -114,25 +112,26 @@ instance Ord Sortable where
    where
     arbitraryRank :: Value -> Int
     arbitraryRank = \case
-      Object{} -> 5
-      Array{} -> 4
-      String{} -> 3
-      Number{} -> 2
-      Bool{} -> 1
+      Object {} -> 5
+      Array {} -> 4
+      String {} -> 3
+      Number {} -> 2
+      Bool {} -> 1
       Null -> 0
 
 sortJsonArrays :: Value -> Value
 sortJsonArrays = \case
   Array v -> Array $ vectorSortOn Sortable $ sortJsonArrays <$> v
   Object hm -> Object $ sortJsonArrays <$> hm
-  x@String{} -> x
-  x@Number{} -> x
-  x@Bool{} -> x
-  x@Null{} -> x
+  x@String {} -> x
+  x@Number {} -> x
+  x@Bool {} -> x
+  x@Null {} -> x
 
 vectorSortOn :: Ord b => (a -> b) -> Vector a -> Vector a
 vectorSortOn f v = v V.// zip [0 ..] sorted
-  where sorted = sortOn f $ V.toList v
+ where
+  sorted = sortOn f $ V.toList v
 
 -- | Normalize all 'Number' values to 'Double' precision
 --
@@ -143,13 +142,12 @@ vectorSortOn f v = v V.// zip [0 ..] sorted
 --
 -- This sends them through an 'id' function as 'Double', which will make either
 -- print as @1.0@ consistently.
---
 normalizeScientific :: Value -> Value
 normalizeScientific = \case
   Object hm -> Object $ normalizeScientific <$> hm
   Array vs -> Array $ normalizeScientific <$> vs
-  x@String{} -> x
+  x@String {} -> x
   Number sci ->
     Number $ Scientific.fromFloatDigits @Double $ Scientific.toRealFloat sci
-  x@Bool{} -> x
+  x@Bool {} -> x
   x@Null -> x

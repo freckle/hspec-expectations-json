@@ -13,15 +13,15 @@
 -- +--------------------------+-------------------+-------------------+
 -- | 'shouldMatchOrderedJson' | No                | Yes               |
 -- +--------------------------+-------------------+-------------------+
---
 module Test.Hspec.Expectations.Json
   ( shouldBeJson
   , shouldBeUnorderedJson
   , shouldMatchJson
   , shouldMatchOrderedJson
 
-  -- * As predicates
-  -- | These are only created when a specific need arises
+    -- * As predicates
+
+    -- | These are only created when a specific need arises
   , matchesJson
   ) where
 
@@ -62,10 +62,10 @@ import Test.Hspec.Expectations.Json.Internal
 -- ---    "b": true
 -- +++    "b": false
 --    }
---
 shouldBeJson :: HasCallStack => Value -> Value -> IO ()
 shouldBeJson a b = assertBoolWithDiff (a == b) (toText b) (toText a)
-  where toText = toStrict . decodeUtf8 . encodePretty . normalizeScientific
+ where
+  toText = toStrict . decodeUtf8 . encodePretty . normalizeScientific
 
 infix 1 `shouldBeJson`
 
@@ -92,7 +92,6 @@ infix 1 `shouldBeJson`
 -- +++    "b": false,
 -- +++    "c": true
 --    }
---
 shouldBeUnorderedJson :: HasCallStack => Value -> Value -> IO ()
 shouldBeUnorderedJson a b =
   unless (a == b) $ sortJsonArrays a `shouldBeJson` sortJsonArrays b
@@ -121,12 +120,11 @@ infix 1 `shouldBeUnorderedJson`
 -- ---    "b": true
 -- +++    "b": false
 --    }
---
 shouldMatchJson :: HasCallStack => Value -> Value -> IO ()
 shouldMatchJson sup sub =
-  unless (sup == sub)
-    $ sortJsonArrays (pruneJson (Superset sup) (Subset sub))
-    `shouldBeJson` sortJsonArrays sub
+  unless (sup == sub) $
+    sortJsonArrays (pruneJson (Superset sup) (Subset sub))
+      `shouldBeJson` sortJsonArrays sub
 
 infix 1 `shouldMatchJson`
 
@@ -136,7 +134,7 @@ matchesJson sup sub =
   sup
     == sub
     || sortJsonArrays (pruneJson (Superset sup) (Subset sub))
-    == sortJsonArrays sub
+      == sortJsonArrays sub
 
 -- | 'shouldBeJson', ignoring extra Object keys
 --
@@ -162,7 +160,6 @@ matchesJson sup sub =
 -- ---    "b": true
 -- +++    "b": false
 --    }
---
 shouldMatchOrderedJson :: HasCallStack => Value -> Value -> IO ()
 shouldMatchOrderedJson sup sub =
   unless (sup == sub) $ pruneJson (Superset sup) (Subset sub) `shouldBeJson` sub

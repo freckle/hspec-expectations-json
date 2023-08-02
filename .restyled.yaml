@@ -1,7 +1,5 @@
+restylers_version: dev
 restylers:
-  - brittany:
-      include:
-        - "**/*.hs"
-        - "!library/Test/Hspec/Expectations/Json/Internal.hs" # CPP
-
+  - fourmolu
+  - "!stylish-haskell"
   - "*"

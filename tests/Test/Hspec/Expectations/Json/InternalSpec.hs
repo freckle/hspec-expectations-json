@@ -24,13 +24,17 @@ spec = do
 
     it "prunes object keys recursively Superset not present in Subset" $ do
       let
-        sup = Superset [aesonQQ|
+        sup =
+          Superset
+            [aesonQQ|
           { "foo": { "bar": "bar" , "baz": "baz" }
           , "bat": "bat"
           }
         |]
 
-        sub = Subset [aesonQQ|
+        sub =
+          Subset
+            [aesonQQ|
           { "foo": { "bar": "baz" }
           }
         |]
@@ -39,19 +43,24 @@ spec = do
 
     it "prunes objects within Arrays" $ do
       let
-        sup = Superset [aesonQQ|
+        sup =
+          Superset
+            [aesonQQ|
           [ { "foo": "bar", "quix": "cats" }
           , { "foo": "bats", "quix": "baz" }
           ]
         |]
 
-        sub = Subset [aesonQQ|
+        sub =
+          Subset
+            [aesonQQ|
           [ { "foo": "zap" }
           , { "foo": "zop" }
           ]
         |]
 
-      pruneJson sup sub `shouldBeJson` [aesonQQ|
+      pruneJson sup sub
+        `shouldBeJson` [aesonQQ|
        [ { "foo": "bar" }
        , { "foo": "bats" }
        ]
@@ -59,19 +68,24 @@ spec = do
 
     it "handles mismatching types" $ do
       let
-        sup = Superset [aesonQQ|
+        sup =
+          Superset
+            [aesonQQ|
           { "foo": { "bar": 1, "baz": "baz" }
           , "bat": { "bat": 1 }
           }
         |]
 
-        sub = Subset [aesonQQ|
+        sub =
+          Subset
+            [aesonQQ|
           { "foo": { "bar": "baz" }
           , "bat": "bat"
           }
         |]
 
-      pruneJson sup sub `shouldBeJson` [aesonQQ|
+      pruneJson sup sub
+        `shouldBeJson` [aesonQQ|
         { "foo": { "bar": 1 }
         , "bat": { "bat": 1 }
         }
