@@ -138,6 +138,27 @@ spec = do
 
       a `shouldMatchJson` b
 
+    let shouldMatchJsonWithOmittedNullFields =
+          shouldBeJsonNormalized $
+            treatNullsAsMissing
+              <> ignoreArrayOrdering
+              <> subsetActualToExpected
+              <> expandHeterogenousArrays
+
+    it "ignores omitted null fields" $ do
+      let
+        a = [aesonQQ|{ "foo": 1 }|]
+        b = [aesonQQ|{ "foo": 1, "bar": null }|]
+
+      a `shouldMatchJsonWithOmittedNullFields` b
+
+    it "ignores omitted null fields in arrays" $ do
+      let
+        a = [aesonQQ|[{ "bar": 1 }, { "foo": 1 }]|]
+        b = [aesonQQ|[{ "foo": 1, "bar": null }, { "foo":null, "bar": 1 }]|]
+
+      a `shouldMatchJsonWithOmittedNullFields` b
+
 -- it "is an example failure, to checking how they're printed" $ do
 --   let
 --     a = [aesonQQ|

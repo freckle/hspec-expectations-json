@@ -1,7 +1,14 @@
 module Test.Hspec.Expectations.Json.Lifted
-  ( shouldBeJson
+  ( shouldMatchJson
+  , shouldBeJsonNormalized
+  , E.Normalizer
+  , E.treatNullsAsMissing
+  , E.ignoreArrayOrdering
+  , E.subsetActualToExpected
+  , E.expandHeterogenousArrays
+  -- Legacy API
+  , shouldBeJson
   , shouldBeUnorderedJson
-  , shouldMatchJson
   , shouldMatchOrderedJson
   ) where
 
@@ -11,6 +18,10 @@ import Control.Monad.IO.Class (MonadIO (..))
 import Data.Aeson
 import GHC.Stack
 import qualified Test.Hspec.Expectations.Json as E
+
+shouldBeJsonNormalized
+  :: (HasCallStack, MonadIO m) => E.Normalizer -> Value -> Value -> m ()
+shouldBeJsonNormalized n x = liftIO . E.shouldBeJsonNormalized n x
 
 shouldBeJson :: (HasCallStack, MonadIO m) => Value -> Value -> m ()
 shouldBeJson x = liftIO . E.shouldBeJson x

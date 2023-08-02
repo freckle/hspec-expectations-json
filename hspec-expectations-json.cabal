@@ -4,10 +4,10 @@ cabal-version: 1.18
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 19cac3e800b693fe2abef985d22d3e12b8fa461d817f987c2279a69ca839ccad
+-- hash: 088c15398e478d5dc849fc5c4cca94a30a77df897ef2b42ecd8b0106672134d2
 
 name:           hspec-expectations-json
-version:        1.0.0.7
+version:        1.0.2.0
 synopsis:       Hspec expectations for JSON Values
 description:    Hspec expectations for JSON Values
                 .

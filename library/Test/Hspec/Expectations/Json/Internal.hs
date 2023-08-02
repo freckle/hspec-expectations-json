@@ -17,6 +17,8 @@ module Test.Hspec.Expectations.Json.Internal
 
     -- * Dealing with 'Scientific'
   , normalizeScientific
+  , filterNullFields
+  , expandHeterogenousArrays
   )
 where
 
@@ -96,6 +98,20 @@ pruneJson (Superset sup) (Subset sub) = case (sup, sub) of
     Just y -> (\x -> pruneJson (Superset x) (Subset y)) <$> a
   (x, _) -> x
 
+-- | Expand objects in arrays to have null values for omitted fields
+--
+-- ex: [{a:1}, {b:1}] -> [{a:1, b:null}, {a:null, b:1}]
+expandHeterogenousArrays :: Value -> Value
+expandHeterogenousArrays = go KeyMap.empty
+ where
+  collectAllKeys = \case
+    Object km -> Null <$ km
+    _ -> KeyMap.empty
+  go allKeys = \case
+    Object km -> Object $ expandHeterogenousArrays <$> KeyMap.union km allKeys
+    Array vec -> Array $ go (foldMap collectAllKeys vec) <$> vec
+    x -> x
+
 newtype Sortable = Sortable Value
   deriving newtype (Eq)
 
@@ -151,3 +167,18 @@ normalizeScientific = \case
     Number $ Scientific.fromFloatDigits @Double $ Scientific.toRealFloat sci
   x@Bool {} -> x
   x@Null -> x
+
+filterNullFields :: Value -> Value
+filterNullFields = go
+ where
+  go :: Value -> Value
+  go = \case
+    Object km -> Object $ KeyMap.mapMaybe objectFilter km
+    Array vec -> Array $ filterNullFields <$> vec
+    x -> x
+  objectFilter :: Value -> Maybe Value
+  objectFilter = \case
+    Object km -> Just $ Object $ KeyMap.mapMaybe objectFilter km
+    Array vec -> Just $ Array $ filterNullFields <$> vec
+    Null -> Nothing
+    x -> Just x

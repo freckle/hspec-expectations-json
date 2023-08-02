@@ -112,3 +112,25 @@ spec = do
         sorted = [aesonQQ|[{ "x": ["number_basics", "number_facts"] }]|]
 
       sortJsonArrays unsorted `shouldBeJson` sorted
+
+  describe "filterNullFields" $ do
+    it "filters objects" $ do
+      let
+        withNull = [aesonQQ|{ "x": "x", "y": null }|]
+        withoutNull = [aesonQQ|{ "x": "x" }|]
+
+      filterNullFields withNull `shouldBeJson` withoutNull
+
+    it "filters in arrays" $ do
+      let
+        withNull = [aesonQQ|[{ "x": "x", "y": null }]|]
+        withoutNull = [aesonQQ|[{ "x": "x" }]|]
+
+      filterNullFields withNull `shouldBeJson` withoutNull
+
+    it "filters deeply" $ do
+      let
+        withNull = [aesonQQ|{ "x": {"y": [{"z":"z", "a":null}, {"a": "a"}], "z": null }}|]
+        withoutNull = [aesonQQ|{ "x": {"y": [{"z":"z"}, {"a": "a"}]}}|]
+
+      filterNullFields withNull `shouldBeJson` withoutNull
