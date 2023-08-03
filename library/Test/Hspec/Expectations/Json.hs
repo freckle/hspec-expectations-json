@@ -18,6 +18,7 @@ module Test.Hspec.Expectations.Json
   , shouldBeJson
   , shouldBeJsonNormalized
   , Normalizer
+  , defaultNormalizer
   , treatNullsAsMissing
   , ignoreArrayOrdering
   , subsetActualToExpected
@@ -25,7 +26,7 @@ module Test.Hspec.Expectations.Json
 
     -- * Legacy API
 
-    -- | Prefer to use shouldBeJsonNormalized with the appropriate `Normalizer`
+    -- | Prefer to use shouldBeJsonNormalized with the appropriate 'Normalizer'
   , shouldBeUnorderedJson
   , shouldMatchOrderedJson
 

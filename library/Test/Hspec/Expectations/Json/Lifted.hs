@@ -3,6 +3,7 @@ module Test.Hspec.Expectations.Json.Lifted
   , shouldBeJson
   , shouldBeJsonNormalized
   , E.Normalizer
+  , E.defaultNormalizer
   , E.treatNullsAsMissing
   , E.ignoreArrayOrdering
   , E.subsetActualToExpected
@@ -10,7 +11,7 @@ module Test.Hspec.Expectations.Json.Lifted
 
     -- * Legacy API
 
-    -- | Prefer to use shouldBeJsonNormalized with the appropriate `Normalizer`
+    -- | Prefer to use shouldBeJsonNormalized with the appropriate 'Normalizer'
   , shouldBeUnorderedJson
   , shouldMatchOrderedJson
   ) where
