@@ -15,14 +15,17 @@
 -- +--------------------------+-------------------+-------------------+
 module Test.Hspec.Expectations.Json
   ( shouldMatchJson
+  , shouldBeJson
   , shouldBeJsonNormalized
   , Normalizer
   , treatNullsAsMissing
   , ignoreArrayOrdering
   , subsetActualToExpected
   , expandHeterogenousArrays
-  -- Legacy API
-  , shouldBeJson
+
+    -- * Legacy API
+
+    -- | Prefer to use shouldBeJsonNormalized with the appropriate `Normalizer`
   , shouldBeUnorderedJson
   , shouldMatchOrderedJson
 

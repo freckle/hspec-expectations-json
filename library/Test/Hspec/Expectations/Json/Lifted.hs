@@ -1,13 +1,16 @@
 module Test.Hspec.Expectations.Json.Lifted
   ( shouldMatchJson
+  , shouldBeJson
   , shouldBeJsonNormalized
   , E.Normalizer
   , E.treatNullsAsMissing
   , E.ignoreArrayOrdering
   , E.subsetActualToExpected
   , E.expandHeterogenousArrays
-  -- Legacy API
-  , shouldBeJson
+
+    -- * Legacy API
+
+    -- | Prefer to use shouldBeJsonNormalized with the appropriate `Normalizer`
   , shouldBeUnorderedJson
   , shouldMatchOrderedJson
   ) where
