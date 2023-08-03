@@ -1,5 +1,10 @@
 ## [_Unreleased_](https://github.com/freckle/hspec-expectations-json/compare/v1.0.1.0...main)
 
+## [v1.0.2.0](https://github.com/freckle/hspec-expectations-json/compare/v1.0.1.1...v1.0.2.0)
+
+- Add `shouldBeJsonNormalized` and `Normalizer` to better support configurable matching
+- Added new option for `treatNullsAsMissing` that will treat nulls fields as if they are the same as omitted ones when doing a comparison
+
 ## [v1.0.1.1](https://github.com/freckle/hspec-expectations-json/compare/v1.0.1.0...v1.0.1.1)
 
 - Add invariant for all matchers for equality. (ex: forall a. a `shouldMatchJson` a)
