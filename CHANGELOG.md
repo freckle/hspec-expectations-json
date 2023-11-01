@@ -1,6 +1,6 @@
 ## [_Unreleased_](https://github.com/freckle/hspec-expectations-json/compare/v1.0.2.1...main)
 
-## [v1.0.3.0](https://github.com/freckle/hspec-expectations-json/compare/v1.0.2.0...v1.0.2.1)
+## [v1.0.2.1](https://github.com/freckle/hspec-expectations-json/compare/v1.0.2.0...v1.0.2.1)
 
 - Fixed issue with `expandHeterogenousArrays` not working for nested Objects
 
