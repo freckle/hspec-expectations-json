@@ -128,7 +128,7 @@ expandHeterogenousArrays = go mempty
             vec
       in
         Object $ nullChildren nullCurrentLevel
-    Array vec -> Array $ go vec <$> vec
+    Array v -> Array $ go v <$> v
     x -> x
 
 newtype Sortable = Sortable Value
