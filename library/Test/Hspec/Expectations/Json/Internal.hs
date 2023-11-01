@@ -119,7 +119,6 @@ expandHeterogenousArrays = go mempty
         nullChildren :: Object -> Object
         nullChildren = mapWithKey $ \(k, v) -> (k, go (siblingProperties k) v)
         -- Gather all values at the specified key
-        siblingProperties :: Key -> Array
         siblingProperties k =
           V.mapMaybe
             ( \case
