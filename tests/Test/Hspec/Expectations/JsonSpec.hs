@@ -159,6 +159,57 @@ spec = do
 
       a `shouldMatchJsonWithOmittedNullFields` b
 
+    it "ignores omitted null fields in nested objects" $ do
+      let
+        a =
+          [aesonQQ|
+[
+  {
+    "a": {
+      "a": 1
+    },
+    "b": {
+      "b": 1
+    }
+  },
+  {
+    "a": {
+      "b": 2
+    },
+    "b": {
+      "c": 2
+    }
+  }
+]
+|]
+        b =
+          [aesonQQ|
+[
+  {
+    "a": {
+      "a": 1,
+      "b": null
+    },
+    "b": {
+      "b": 1,
+      "c": null
+    }
+  },
+  {
+    "a": {
+      "a": null,
+      "b": 2
+    },
+    "b": {
+      "b": null,
+      "c": 2
+    }
+  }
+]
+|]
+
+      a `shouldMatchJsonWithOmittedNullFields` b
+
 -- it "is an example failure, to checking how they're printed" $ do
 --   let
 --     a = [aesonQQ|

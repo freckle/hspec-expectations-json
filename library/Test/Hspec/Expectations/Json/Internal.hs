@@ -102,14 +102,33 @@ pruneJson (Superset sup) (Subset sub) = case (sup, sub) of
 --
 -- ex: [{a:1}, {b:1}] -> [{a:1, b:null}, {a:null, b:1}]
 expandHeterogenousArrays :: Value -> Value
-expandHeterogenousArrays = go KeyMap.empty
+expandHeterogenousArrays = go mempty
  where
   collectAllKeys = \case
     Object km -> Null <$ km
     _ -> KeyMap.empty
-  go allKeys = \case
-    Object km -> Object $ expandHeterogenousArrays <$> KeyMap.union km allKeys
-    Array vec -> Array $ go (foldMap collectAllKeys vec) <$> vec
+  go vec = \case
+    Object km ->
+      let
+        -- Set all keys not present in this level of the object to null
+        nullCurrentLevel :: Object
+        nullCurrentLevel = KeyMap.union km (foldMap collectAllKeys vec)
+        -- `mapWithKey` is not available for all version of `KeyMap`
+        mapWithKey f = KeyMap.fromList . fmap f . KeyMap.toList
+        -- Recurse over all properties
+        nullChildren :: Object -> Object
+        nullChildren = mapWithKey $ \(k, v) -> (k, go (siblingProperties k) v)
+        -- Gather all values at the specified key
+        siblingProperties k =
+          V.mapMaybe
+            ( \case
+                Object km' -> KeyMap.lookup k km'
+                _ -> Nothing
+            )
+            vec
+      in
+        Object $ nullChildren nullCurrentLevel
+    Array v -> Array $ go v <$> v
     x -> x
 
 newtype Sortable = Sortable Value
